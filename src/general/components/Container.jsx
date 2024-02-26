@@ -1,15 +1,27 @@
 import styled from "styled-components";
 
 const StyledContainer = styled.div`
-  padding-top: 206px;
   min-height: 100%;
   padding-left: 25px;
   padding-right: 26px;
-  background: url(/images/background-mobile.svg) no-repeat center/cover;
+  background: ${props =>
+    props.$bgBlur
+      ? `linear-gradient(
+      180deg,
+      rgba(26, 4, 58, 0.75) 0%,
+      rgba(21, 18, 120, 0.75) 70.31%,
+      rgba(43, 22, 119, 0.75) 100%
+    ),
+    url(/images/background-mobile.svg) no-repeat center/cover`
+      : `url(/images/background-mobile.svg) no-repeat center/cover`};
 `;
 
-const Container = ({ children }) => {
-  return <StyledContainer>{children}</StyledContainer>;
+const Container = ({ children, className, bgBlur }) => {
+  return (
+    <StyledContainer $bgBlur={bgBlur} className={className}>
+      {children}
+    </StyledContainer>
+  );
 };
 
 export default Container;

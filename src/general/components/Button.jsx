@@ -20,7 +20,7 @@ const StyledButton = styled.button`
   }
 
   ${props => {
-    switch (props.variant) {
+    switch (props.$variant) {
       case "circular":
         return css`
           background-color: ${props => props.theme.colors.blue};
@@ -34,6 +34,7 @@ const StyledButton = styled.button`
           background-color: ${props => props.theme.colors.blue};
           padding: 24px 0;
           width: 100%;
+          font-size: 24px;
           text-align: center;
           border-radius: 20px;
           box-shadow: 0px -2px 0px 3px #140e66 inset,
@@ -46,19 +47,28 @@ const StyledButton = styled.button`
   }}
 
   ${props =>
-    props.danger &&
+    props.$danger &&
     css`
       background: var(
         --Pink-Gradient,
         linear-gradient(180deg, #fe71fe 16.42%, #7199ff 100%)
       );
       box-shadow: 0px -2px 0px 3px #140e66 inset, 0px 1px 0px 6px #c642fb inset;
+
+      &:hover {
+        background: linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.25) 0%,
+            rgba(255, 255, 255, 0.25) 100%
+          ),
+          linear-gradient(180deg, #fe71fe 16.42%, #7199ff 100%);
+      }
     `}
 `;
 
 const Button = ({ children, onClick, variant, danger }) => {
   return (
-    <StyledButton danger={danger} variant={variant} onClick={onClick}>
+    <StyledButton $danger={danger} $variant={variant} onClick={onClick}>
       {children}
     </StyledButton>
   );

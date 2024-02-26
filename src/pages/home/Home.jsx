@@ -2,6 +2,7 @@ import styled from "styled-components";
 import PlayBtn from "./components/PlayBtn";
 import Button from "../../general/components/Button";
 import Container from "../../general/components/Container";
+import { useNavigate } from "react-router-dom";
 
 const Menu = styled.div`
   position: relative;
@@ -24,23 +25,30 @@ const Img = styled.img`
   position: absolute;
   top: -50px;
   width: 250px;
+
   @media screen and (min-width: 768px) {
     width: 355px;
     top: -80px;
   }
 `;
 
+const StyledContainer = styled(Container)`
+  padding-top: 206px;
+`;
+
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
-    <Container>
+    <StyledContainer>
       <Menu>
         <Img src="/images/logo.svg" alt="" />
         <PlayBtn />
-        <Button variant={"circular"} danger>
+        <Button onClick={() => navigate("/how-to")} variant={"circular"}>
           how to play
         </Button>
       </Menu>
-    </Container>
+    </StyledContainer>
   );
 };
 

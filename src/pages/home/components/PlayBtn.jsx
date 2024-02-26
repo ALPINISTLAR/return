@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-//
+
 const StyledPlayBtn = styled.button`
   width: 160px;
   height: 160px;
@@ -36,9 +37,11 @@ const StyledPlayBtn = styled.button`
 
 const PlayBtn = () => {
   return (
-    <StyledPlayBtn>
-      <img src="/images/icon-play.svg" alt="" />
-    </StyledPlayBtn>
+    <Link to={"/category"}>
+      <StyledPlayBtn>
+        <img src="/images/icon-play.svg" alt="" />
+      </StyledPlayBtn>
+    </Link>
   );
 };
 
