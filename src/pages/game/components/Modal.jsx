@@ -3,6 +3,8 @@ import Title from "../../../general/components/Title";
 import Button from "../../../general/components/Button";
 import { useNavigate } from "react-router-dom";
 import useModal from "../../../general/hooks/useModal";
+import useGameStore from "../../../store/useGameStore";
+import { tablet } from "../../../general/media/media";
 
 const StyledDialog = styled.dialog`
   position: relative;
@@ -12,6 +14,15 @@ const StyledDialog = styled.dialog`
   background: inherit;
   color: white;
   border: none;
+
+  &::backdrop {
+    background: linear-gradient(
+      180deg,
+      rgba(26, 4, 58, 0.75) 0%,
+      rgba(21, 18, 120, 0.75) 70.31%,
+      rgba(43, 22, 119, 0.75) 100%
+    );
+  }
 `;
 
 const StyledModal = styled.div`
@@ -28,6 +39,12 @@ const StyledModal = styled.div`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+
+  ${tablet} {
+    max-width: 592px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 const StyledTitle = styled(Title)`
@@ -36,6 +53,12 @@ const StyledTitle = styled(Title)`
   letter-spacing: -0.47px;
   margin-top: -52px;
   margin-bottom: 43px;
+
+  ${tablet} {
+    font-size: 134px;
+    letter-spacing: -0.67px;
+    margin-top: -89px;
+  }
 `;
 
 const StyledButtons = styled.div`
@@ -44,21 +67,53 @@ const StyledButtons = styled.div`
   align-items: center;
   gap: 34px;
 `;
+
+const title = {
+  win: "You win",
+  lose: "You lose",
+  playing: "Paused",
+};
+
 const Modal = () => {
+  const gameStatus = useGameStore(state => state.gameStatus);
+  const playAgain = useGameStore(state => state.playAgain);
+
+  const quitGame = useGameStore(state => state.quitGame);
+
   const navigate = useNavigate();
   const { closeModal } = useModal();
+
   return (
     <StyledDialog id="dialog">
       <StyledModal>
-        <StyledTitle>Paused</StyledTitle>
+        <StyledTitle>{title[gameStatus]}</StyledTitle>
         <StyledButtons>
-          <Button onClick={closeModal} variant={"circular"}>
-            continue
-          </Button>
-          <Button onClick={() => navigate("/category")} variant={"circular"}>
+          {gameStatus === "playing" ? (
+            <Button onClick={closeModal} variant={"circular"}>
+              continue
+            </Button>
+          ) : (
+            <Button onClick={playAgain} variant={"circular"}>
+              play again
+            </Button>
+          )}
+          <Button
+            onClick={() => {
+              quitGame();
+              navigate("/category");
+            }}
+            variant={"circular"}
+          >
             new category
           </Button>
-          <Button onClick={() => navigate("/")} variant={"circular"} danger>
+          <Button
+            onClick={() => {
+              quitGame();
+              navigate("/");
+            }}
+            variant={"circular"}
+            danger
+          >
             quit game
           </Button>
         </StyledButtons>

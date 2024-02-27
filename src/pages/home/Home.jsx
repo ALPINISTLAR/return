@@ -3,6 +3,7 @@ import PlayBtn from "./components/PlayBtn";
 import Button from "../../general/components/Button";
 import Container from "../../general/components/Container";
 import { useNavigate } from "react-router-dom";
+import { desktop, tablet } from "../../general/media/media";
 
 const Menu = styled.div`
   position: relative;
@@ -15,9 +16,10 @@ const Menu = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media screen and (min-width: 768px) {
+  ${tablet} {
     max-width: 592px;
     margin: 0 auto;
+    height: 500px;
   }
 `;
 
@@ -26,7 +28,7 @@ const Img = styled.img`
   top: -50px;
   width: 250px;
 
-  @media screen and (min-width: 768px) {
+  ${tablet} {
     width: 355px;
     top: -80px;
   }
@@ -34,6 +36,14 @@ const Img = styled.img`
 
 const StyledContainer = styled(Container)`
   padding-top: 206px;
+
+  ${tablet} {
+    padding-top: 317px;
+  }
+
+  ${desktop} {
+    padding-top: 313px;
+  }
 `;
 
 const Home = () => {
