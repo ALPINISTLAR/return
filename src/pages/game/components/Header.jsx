@@ -3,6 +3,7 @@ import IconButton from "../../../general/components/IconButton";
 import Health from "./Health";
 import useModal from "../../../general/hooks/useModal";
 import { desktop, tablet } from "../../../general/media/media";
+import useGameStore from "../../../store/useGameStore";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -39,11 +40,12 @@ const StyledLeft = styled.div`
 `;
 const Header = () => {
   const { showModal } = useModal();
+  const category = useGameStore(state => state.category);
   return (
     <StyledHeader>
       <StyledLeft>
         <IconButton onClick={showModal} icon={"/images/icon-menu.svg"} />
-        <StyledTitle>Countries</StyledTitle>
+        <StyledTitle>{category}</StyledTitle>
       </StyledLeft>
       <Health />
     </StyledHeader>
